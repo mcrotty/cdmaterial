@@ -47,12 +47,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         boxShadow: {
           value: '0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)'
+        },
+        
+        prefix: {
+          value: ''
         }
-
       },
 
       observers: [
-        '_render(pos, path, label, description, padding, margin, boxShadow)'
+        '_render(pos, path, label, description, padding, margin, boxShadow, prefix)'
       ],
       
       followLink: function(e1) {
@@ -64,10 +67,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
       ready: function() {
         this.style.display = 'block';
+        
+        // Set prefix
+        if (location.href.startsWith('https://mcrotty.github.io/cdmaterial')) {
+            // Running on github
+            this.set('prefix', 'cdmaterial');
+        }
+            
       },
 
       // Apply some styles to make this look like a card.
-      _render: function(pos, path, label, description, padding, margin, boxShadow) {
+      _render: function(pos, path, label, description, padding, margin, boxShadow, prefix) {
         var html = '';
           html +=
             '<div style="box-shadow: ' + boxShadow +  '; padding: ' + padding + '; margin: ' + margin + '; border-radius: 5px; background-color: #fff; color: #757575;">' +
@@ -80,9 +90,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           } else {
             html += '<br/>';
           }
+          var fullpath = this.path;
+          // Check for full URL
+          if (fullpath.startsWith('http')) {
+            // Full URL, skip adding prefix portion
+            //console.log("Skipping prefix");            
+          } else if (this.prefix !== '') {
+              // Have a prefix, give hint as to where index is
+              fullpath = prefix + '/' + fullpath + '/index.html?index=' + prefix;
+              //console.log("Adding prefix");            
+          }
           html +=          
-            '<div class="card-actions"><a href="' + path + '/index.html?index=cdmaterial"><paper-button>Start now</paper-button></a></div>'
-            '</div>';
+            '<div class="card-actions"><a href="' + fullpath + '"><paper-button>Start now</paper-button></a></div>'
+            '</div>';              
           this.innerHTML = html;
       }
 
