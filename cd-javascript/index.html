@@ -1,0 +1,298 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>HTML/javascript codelab</title>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+    google-codelab {
+      --google-codelab-header-background: var(--paper-purple-600);
+      --google-codelab-fab-background: var(--paper-purple-700);
+      --google-codelab-toc-color: var(--paper-purple-500);
+    }
+}
+
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="HTML/javascript codelab"
+                  environment="web"
+                  feedback-link="mcrotty.tssg@gmail.com">
+    
+      <google-codelab-step label="Introduction" duration="0">
+        <p>This codelab will guide you through using javascript to add HTML elements to a webpage at runtime.  In the process we will show some for loops, what they are used for and how to put them to use for ourselves.</p>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li><a href="https://projects.raspberrypi.org/en/projects/pixel-art" target="_blank">Pixel Art project</a> from the raspberrypi projects website</li>
+<li>Copy the code from the trinket you created OR</li>
+<li>Use a local copy to this project on your computer. Remember, you should have (index.html, style.css, and script.js)</li>
+<li>VSCode installed (ask if you do not have this)</li>
+</ul>
+<h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How to add elements (HTML tags to a web page)</li>
+<li>How to create a javascript function</li>
+<li>What is a for loop?</li>
+<li>Why would you use it?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="VSCode tips" duration="0">
+        <p>To allow VScode to automatically show a webpage in the browser:</p>
+<ol type="1" start="1">
+<li>Use <code>ctrl + shift + p</code> (or F1) to open the Command Palette.</li>
+<li>Type in <strong>Configure Task Builder</strong>. Selecting it will open the <strong>tasks.json</strong> file. Delete the script displayed and replace it by the following:</li>
+<li>{<br>    &#34;version&#34;: &#34;2.0.0&#34;,<br>    &#34;label&#34;: &#34;chrome&#34;,    <br>    &#34;windows&#34;: {<br>        &#34;command&#34;: &#34;C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe&#34;<br>    },<br>    &#34;args&#34;: [  &#34;${file}&#34; ], <br>   &#34;group&#34;: {<br>      &#34;kind&#34;: &#34;build&#34;,<br>       &#34;isDefault&#34;: true<br>    }<br>}<br></li>
+<li>Save the file.</li>
+<li>Switch back to your html file (in this example it&#39;s &#34;index.html&#34;)</li>
+<li>Press <code>ctrl + shift + b</code> to view your page in your Web Browser.</li>
+</ol>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>When using VScode, use the &#34;Open folder&#34; command.  This groups all the files into a &#34;project&#34; corresponding to the folder, and gives you a list of files on the left hand side.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Review" duration="0">
+        <p>You should have 3 files in the folder as specified here.</p>
+<p><strong>Index.html</strong> :  This contains the structure of what you will see. Page title, headings etc.  This is a <strong>HTML</strong> file</p>
+<p><strong>Style.css</strong> : This contains instructions on how to present the information.  What font color is used, what background colour, what font, what font size, and spacing information.  Eg. how much space around the HTML tag.  This is <strong>CSS.</strong></p>
+<p><strong>Script.js</strong> :  Adds interactivity to the web page. Eg. what happens when a button is pressed or an area clicked on.  This is <strong>JAVASCRIPT </strong></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting started" duration="0">
+        <ol type="1" start="1">
+<li>Open the folder for the project in VSCode.</li>
+<li>Once you have found this, open index.html.</li>
+<li>Find the <code>&lt;div id=&#34;art&gt;</code>.</li>
+<li>Comment out all the <code>&lt;div&gt;&lt;/div&gt;</code> between this and the enclosing <code>&lt;/div&gt;</code>.  Remember, use the <code>Ctrl + /</code> to comment out or put `<code>&lt;!--</code>` before and <code>`--&gt;`</code> after the text.</li>
+</ol>
+<pre><code>&lt;div id=&#34;art&#34;&gt;                                                                                                                                                                                                           
+ &lt;!-- &lt;div class=&#34;row&#34;&gt;
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                              
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                             
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                             
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                                   
+ &lt;/div&gt; --&gt;
+&lt;/div&gt;      </code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What&#39;s an HTML element?" duration="0">
+        <p>An element is a pair of  HTML tag.  Eg.  <code>&lt;p&gt;....&lt;/p&gt;</code>.</p>
+<p>All HTML tags should be paired.</p>
+<p>See the <code>`div`</code> element in the example below.</p>
+<pre><code>&lt;div class=&#34;row&#34;&gt;
+   &lt;!-- Lots of other tags --&gt;
+&lt;/div&gt;</code></pre>
+<h2>In general</h2>
+<p>Any HTML tag has the following format.</p>
+<pre><code>&lt;elementname attributename=&#34;something&#34; name2=&#34;value2&#34; &gt; 
+  Child content
+&lt;/elementname&gt;</code></pre>
+<p>You need to be familiar with this, for the next steps.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Finding a spot in a webpage" duration="0">
+        <p>Javascript provides some methods to help in adding HTML tags to a web page.</p>
+<h2>Find the right spot to add the new element.</h2>
+<p>The following javascript shows how to find a spot in the HTML to add the new element.</p>
+<pre><code>var parent = document.getElementById(&#39;art&#39;);</code></pre>
+<p>In this case we have found the <code>&lt;div&gt;</code> with the attribute named &#34;id&#34; is equal to &#34;art&#34; </p>
+<p>This spot in the webpage is stored in variable &#34;parent&#34;</p>
+<h2>Adding the new element.</h2>
+<p>The following shows how to add an element to the location contained in the variable parent.</p>
+<pre><code>parent.appendChild(node);</code></pre>
+<p>Where node is a variable containing the element to be added.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding an element to a webpage" duration="0">
+        <p>The following shows how create a PARAGRAPH <code>&lt;p&gt;</code> element and store it in the variable node.</p>
+<pre><code>var node = document.createElement(&#39;p&#39;);
+node.setAttribute(&#34;class&#34;, &#34;row&#34;);</code></pre>
+<h2>Adding attributes</h2>
+<p>Remember what we said about HTML tags with attribute names and values.  The following code adds a attribute named &#34;mentor&#34; with a value of &#34;micheal&#34;.</p>
+<pre><code>var node = document.createElement(&#39;p&#39;);
+node.setAttribute(&#34;mentor&#34;, &#34;micheal&#34;);</code></pre>
+<p>This would add <code>&lt;p  mentor= &#34;micheal&#34;&gt;&lt;/p&gt;</code> to the web page.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a javascript function" duration="0">
+        <h2>Create a function</h2>
+<ul>
+<li>The function should be called <code>`setupGrid`</code></li>
+<li>What file should it be placed in?</li>
+<li>Add as the contents of the function:</li>
+</ul>
+<pre><code>console.log(&#34;Setup grid has been called\n&#34;);</code></pre>
+<h2>Reload the webpage</h2>
+<ul>
+<li>Reload the web page.</li>
+<li>Open the web console</li>
+<li>What do you see?</li>
+</ul>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>Remember to call you javascript function by placing a line such as:</p>
+<p><code>window.addEventListener(&#34;DOMContentLoaded&#34;, </code></p>
+<p><code>  function () { setupGrid(); });</code><br></p>
+<p>On a line on its own at the end of the file.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge: Add a paragraph" duration="0">
+        <p>We would like you to write a JAVASCRIPT function to add  a <code>&lt;p&gt;&lt;/p&gt;</code> tag to the webpage.</p>
+<h2>Apply the code snippets above</h2>
+<ul>
+<li>Can you put all the above pieces of javascript together to add a <code>&lt;p&gt;</code></li>
+<li>If should be added inside the <code>&lt;div id=&#34;art&#34;&gt;</code> tag.</li>
+</ul>
+<h2>Modify code to add an attribute</h2>
+<ul>
+<li>Modify the code to add an attribute named &#34;class&#34; with a value of &#34;row&#34;</li>
+</ul>
+<h2>Reload the webpage</h2>
+<ul>
+<li>Reload the web page.</li>
+<li>Open the web console</li>
+<li>Use the &#34;inspector&#34; tab to find the what do you see?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge: Add three paragraphs" duration="0">
+        <h2>Add three paragraphs in the same place</h2>
+<p>We would like you to write a JAVASCRIPT function to add  a <code>&lt;p&gt;&lt;/p&gt;</code> tag to the webpage 3 times.</p>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>A function is a way to reuse javascript code.</p>
+<p>Should we create a new function to contain this code?</p>
+</aside>
+<h2>Reload the webpage</h2>
+<ul>
+<li>Reload the web page.</li>
+<li>Open the web console</li>
+<li>Use the &#34;inspector&#34; tab to find the what do you see?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Loops: The for loop." duration="0">
+        <h2>In general</h2>
+<p>A for loop is a means to do something many times.</p>
+<pre><code>for (variable assignment;  condition ; increment) {
+  // Something you want to happen many times
+}</code></pre>
+<p>It stops when the condition is false.</p>
+<h2>Example</h2>
+<pre><code>for (var i=0; i &lt; 10 ; i++) {
+  // Something you want to happen many times
+  console.log(&#34;I have done this &#34; + (i+1) + &#34; times&#34;);
+}
+console.log(&#34;Ive finished&#34;);</code></pre>
+<aside class="warning"><p><strong>Warning</strong></p>
+<p>Remember the computer starts counting at zero (0) !</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge: Add 100 paragraphs" duration="0">
+        <h2>Add 100 paragraphs in the same place </h2>
+<p>Use a for loop to add 100 paragraphs.</p>
+<h2>Reload the webpage</h2>
+<ul>
+<li>Reload the web page.</li>
+<li>Open the web console</li>
+<li>Use the &#34;inspector&#34; tab to find the what do you see?</li>
+<li>What happens if you change the paragraph tag to a div tag?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge: Add 10 Pixels" duration="0">
+        <ol type="1" start="1">
+<li>Create a function to create 10 divs with a class of &#34;pixel&#34;</li>
+<li>The function should be called <code>setupPixel</code>.</li>
+<li>It should add  the equivalent to the following HTML</li>
+</ol>
+<pre><code>&lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt;
+&lt;/div&gt;      </code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Final challenge" duration="0">
+        <p>Can you devise a way to have 3 &#34;rows&#34; where each row contains 3 &#34;pixels&#34;?</p>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>Use the knowledge from the previous steps.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Next steps" duration="0">
+        <p>You are done</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
