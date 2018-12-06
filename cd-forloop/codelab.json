@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "1LxnqVk6Y_6JdRthu6ytujrXvECPvQvNx63LPmnaJEoI",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-12-06T09:43:46Z",
+  "id": "cd-forloop",
+  "duration": 0,
+  "title": "Loopy PixelArt; using for loops",
+  "summary": "This project will guide you through using javascript to add HTML elements to a webpage at runtime.  In the process we will show some for loops",
+  "theme": "web",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "for",
+    "javascript",
+    "loops"
+  ],
+  "feedback": "mcrotty.tssg@gmail.com",
+  "url": "cd-forloop"
+}

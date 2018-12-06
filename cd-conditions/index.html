@@ -1,0 +1,256 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Will I, won&#39;t I; PixelArt with conditions</title>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+    google-codelab {
+      --google-codelab-header-background: var(--paper-purple-600);
+      --google-codelab-fab-background: var(--paper-purple-700);
+      --google-codelab-toc-color: var(--paper-purple-500);
+    }
+}
+
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Will I, won&#39;t I; PixelArt with conditions"
+                  environment="web"
+                  feedback-link="mcrotty.tssg@gmail.com">
+    
+      <google-codelab-step label="Introduction" duration="0">
+        <p>This project will build on the previous one, and add some conditional processing to the Pixel Art project.  It will use javascript if .. else conditions to conditionally format grid squares.  This uses the modulo operator in javascript.</p>
+<h2>What you&#39;ll need</h2>
+<ul>
+<li>The pixel art project completed from the previous lesson.  Remember, you should have (index.html, style.css, and script.js) locally on your computer.</li>
+<li>This work is based on the original <a href="https://projects.raspberrypi.org/en/projects/pixel-art" target="_blank">Pixel Art project</a>. </li>
+<li>VSCode installed (ask if you do not have this)</li>
+</ul>
+<h2 class="checklist">What you&#39;ll learn</h2>
+<ul class="checklist">
+<li>How to conditionally format elements (HTML tags in a web page)</li>
+<li>How to create a javascript function</li>
+<li>What is a if condition?</li>
+<li>Why would you use it?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Review" duration="0">
+        <p>You should have 3 files in the folder as specified here.</p>
+<p><strong>Index.html</strong> :  This contains the structure of what you will see. Page title, headings etc.  This is a <strong>HTML</strong> file</p>
+<p><strong>Style.css</strong> : This contains instructions on how to present the information.  What font color is used, what background colour, what font, what font size, and spacing information.  Eg. how much space around the HTML tag.  This is <strong>CSS.</strong></p>
+<p><strong>Script.js</strong> :  Adds interactivity to the web page. Eg. what happens when a button is pressed or an area clicked on.  This is <strong>JAVASCRIPT </strong></p>
+<aside class="special"><p><strong>Note</strong></p>
+<p>These three file types are the basis for:</p>
+<ul>
+<li>all web pages, </li>
+<li>a lot of corporate applications, </li>
+<li>and mobile applications (using cordova).</li>
+</ul>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting started" duration="0">
+        <ol type="1" start="1">
+<li>Open the folder for the project in VSCode.</li>
+<li>Once you have found this, open index.html.</li>
+<li>Find the <code>&lt;div id=&#34;art&gt;</code>.</li>
+<li>Comment out all the <code>&lt;div&gt;&lt;/div&gt;</code> between this and the enclosing <code>&lt;/div&gt;</code>.  Remember, use the <code>Ctrl + /</code> to comment out or put `<code>&lt;!--</code>` before and <code>`--&gt;`</code> after the text.</li>
+</ol>
+<pre><code>&lt;div id=&#34;art&#34;&gt;                                                                                                                                                                                                           
+ &lt;!-- &lt;div class=&#34;row&#34;&gt;
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                              
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                             
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                             
+   &lt;div class=&#34;pixel&#34; onclick=&#34;setPixelColour(this)&#34;&gt; &lt;/div&gt;                                                                                                                                                                   
+ &lt;/div&gt; --&gt;
+&lt;/div&gt;      </code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What&#39;s a condition?" duration="0">
+        <p>Most computer programs are required to make decisions, about what instructions they should do next.   The most common one is the <code>`if`</code> statement.   This boils down to reasoning as follows:  &#34;If this condition is true, do the following .....&#34;.  This can be illustrated in an example.</p>
+<pre><code>var pocket_money = 53.09;
+var amount = 39.99;
+
+if (amount &lt; pocket_money) {
+   // Condition was true
+   console.log(&#34;I want to buy this game&#34;);
+}</code></pre>
+<p>In the above example, this will print &#34;I want to buy this game&#34; on the console.</p>
+<h2>If true do this, otherwise to that</h2>
+<p>It is very common to have reasoning like: &#34;If this condition is true, do the following ..... Otherwise do these other actions&#34;.  This is supported by `else` as shown in the following example:</p>
+<pre><code>var pocket_money = 53.09;
+var amount = 39.99;
+
+if (amount &lt; pocket_money) {
+   // Condition was true
+   console.log(&#34;I want to buy this game&#34;);
+} else {
+   // Condition was false
+   console.log(&#34;Cant buy it now, keep saving.&#34;);
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="If statements (in general)" duration="0">
+        <p>All If statements have the following format, where giving the otherwise parts i.e <code>else if (condition2) { ... }</code> or  <code>else { ... }</code> are optional. </p>
+<pre><code>if (condition) {
+  // Then:
+  // Things to do if condition evaluates to true
+  // Any amount of statements between { and }
+} else if (condition2) {
+  // Otherwise check condition2
+  // Things to do if condition2 evaluates to true
+  // Any amount of statements between { and }
+} else {
+  // Otherwise:
+  // Things to do if condition  and condition2 evaluated to false
+ }</code></pre>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>You can add more than one <code>`else if (...)`</code>   but you are only allowed one <code>`else`</code>.</p>
+</aside>
+<p>You need to be familiar with this, for the next steps.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Remainder arithmetic" duration="0">
+        <p> There is a special operator <code>`%`</code> that can be used to work out the remainder when doing division.   This can be shown the following example:</p>
+<pre><code>var pocket_money = 53;
+var amount = 39;
+var remainder = pocket_money % amount;
+
+console.log(&#34;If you buy this game, you will have &#34;);
+console.log( remainder + &#34; euro left over&#34;);</code></pre>
+<h2>Challenge:</h2>
+<p>What is the remainder if the price of the game is 19 euro?</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="More arithmetic" duration="0">
+        <p>Here is a list of arithmetic operators.  They may come in handy.</p>
+<ul>
+<li>+        Addition</li>
+<li>-        Subtraction</li>
+<li>*        Multiplication</li>
+<li>/        Division</li>
+<li>( something)  Parenthesis can be used to make sure <code>something</code> gets calculated first!</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Coloring the grid, javascript style" duration="0">
+        <p>Javascript provides some methods to help in altering HTML tags in a web page.</p>
+<h2>Using javascript to change a pixels colour</h2>
+<p>The following javascript shows how to change the colour of a pixel.</p>
+<pre><code>penColour = ‘green&#39;;
+setPixelColour(node);</code></pre>
+<aside class="special"><p><strong>Note</strong></p>
+<p>Remember your function may not be called <code>setPixelColour</code>.  </p>
+<p>If you run into problems:</p>
+<ul>
+<li>Check the spelling,  its case sensitive  (uppercase A is different from a). </li>
+<li>Did you add the code in a function to set pixel colours?</li>
+<li>Was your variable called <code>penColour</code> .</li>
+</ul>
+</aside>
+<h2>Find the right spot to add the above code.</h2>
+<p>Find a spot in the JAVASCRIPT file to add the above statements.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge" duration="0">
+        <p>Can you add a condition to colour every third pixel blue?</p>
+<h2>Reload the webpage</h2>
+<p>When you think you have got it. Reload to webpage to test it out.</p>
+<ul>
+<li>Reload the web page.</li>
+<li>Open the web console</li>
+<li>What do you see?</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Challenge 2" duration="0">
+        <ol type="1" start="1">
+<li>Change the grid width to 15.</li>
+<li>Can you add a condition to colour every third pixel blue and every fifth pixel green?</li>
+</ol>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>Remember you can see better what is happening if you turn on &#34;Developer tools&#34;</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Final challenge" duration="0">
+        <p>Can you make the 15th pixel orange (not blue or not green)?</p>
+<aside class="special"><p><strong>Tip</strong></p>
+<p>Use the knowledge from the previous steps.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Next steps" duration="0">
+        <p>You are done</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

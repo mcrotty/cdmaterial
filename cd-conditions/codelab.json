@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "source": "1gyjN80SjjFGSZFwln_Pgs9e2XAbQ0yIDpBdmpFe9V08",
+  "format": "html",
+  "prefix": "../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-12-06T13:04:35Z",
+  "id": "cd-conditions",
+  "duration": 0,
+  "title": "Will I, won't I; PixelArt with conditions",
+  "summary": "This project will build on the previous one, and add some conditional processing to the Pixel Art project.  It will use javascript if .. else conditions to conditionally format grid squares.",
+  "theme": "web",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "conditions",
+    "javascript"
+  ],
+  "feedback": "mcrotty.tssg@gmail.com",
+  "url": "cd-conditions"
+}
