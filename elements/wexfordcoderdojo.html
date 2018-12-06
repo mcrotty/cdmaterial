@@ -1,5 +1,5 @@
 
-<link rel = 'import' href = '../bower_components/polymer/polymer.html'>
+<link rel='import' href = '../bower_components/polymer/polymer.html'>
 <link rel="import" href="../bower_components/font-roboto/roboto.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
@@ -37,13 +37,25 @@
           background-color: var(--paper-green-500);
           color: var(--paper-white, #fff);
        } */
+       
+       .center {
+	  display: block;
+          margin-left: auto;
+          margin-right: auto;
+	  width: 50%;
+	}
 
      </style>
     
      <app-drawer-layout>
 
        <app-drawer>
-         <app-toolbar>Wexford CoderDojo</app-toolbar>
+         <app-toolbar>Wexford CoderDojo
+         </app-toolbar>
+         <br/>
+ 	 <div>
+           <img src="http://wexfordcoderdojo.com/wp-content/uploads/2015/08/Coder-Dojo-260x260.png" class="center" />
+	 </div>
        </app-drawer>
 
        <app-header-layout>

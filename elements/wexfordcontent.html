@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 0
         },
 
-        path: {
+        url: {
           value: ''
         },
         
@@ -55,13 +55,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       observers: [
-        '_render(pos, path, label, description, padding, margin, boxShadow, prefix)'
+        '_render(pos, url, label, description, padding, margin, boxShadow, prefix)'
       ],
       
       followLink: function(e1) {
         // Wait for ripple to finished
         e1.addEventListenter('transitionend', function(e) {
-          location.href = path;
+          location.href = this.url;
         });
       },
   
@@ -77,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       // Apply some styles to make this look like a card.
-      _render: function(pos, path, label, description, padding, margin, boxShadow, prefix) {
+      _render: function(pos, url, label, description, padding, margin, boxShadow, prefix) {
         var html = '';
           html +=
             '<div style="box-shadow: ' + boxShadow +  '; padding: ' + padding + '; margin: ' + margin + '; border-radius: 5px; background-color: #fff; color: #757575;">' +
@@ -90,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           } else {
             html += '<br/>';
           }
-          var fullpath = this.path;
+          var fullpath = this.url;
           // Check for full URL
           if (fullpath.startsWith('http')) {
             // Full URL, skip adding prefix portion
@@ -101,7 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               //console.log("Adding prefix");            
           }
           html +=          
-            '<div class="card-actions"><a href="' + fullpath + '"><paper-button>Start now</paper-button></a></div>'
+            '<div class="card-actions"><a href="' + fullpath + '"><paper-button raised>Start now</paper-button></a></div>'
             '</div>';              
           this.innerHTML = html;
       }
