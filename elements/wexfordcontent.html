@@ -69,16 +69,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
   
-      _getResource(rq) {
+      _getResource: function(rq) {
         let xhr = new XMLHttpRequest();
         xhr.addEventListener('load', rq.onLoad.bind(this));
         xhr.open('GET', rq.url);
         xhr.send();
       },
+      
+      _getFullURL: function(add) {
+        var fullurl ='';
+        if (this.prefix.length > 0) {
+          fullurl = '/' + prefix; 
+        }
+        if (!fullurl.endsWith('/')) {
+          fullurl += '/';
+        }
+        fullurl += this.url;
+        if (!fullurl.endsWith('/')) {
+          fullurl += '/';
+        }
+        fullurl += add;
+        return fullurl;
+      },
 
-      _fetchData() {
+      _fetchData: function() {
          this._getResource({ 
-            url: this.url + '/codelab.json',
+            url: this._getFullURL('codelab.json'),
             onLoad: function(e) {
               var r = e.target.responseText;
               if (!r.startsWith('4') && r.startsWith('{')) {
