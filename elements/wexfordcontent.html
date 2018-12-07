@@ -132,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Check for full URL or empty prefix
         if ((!this.url.startsWith('http')) && (this.prefix !== '')) {
             // Have a prefix, give hint as to where the index page is
-            fullLink += '/index.html?index=' + prefix;
+            fullLink += '/index.html?index=' + this.prefix;
             //console.log("Adding prefix");            
         }
         return fullLink;
