@@ -13,6 +13,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="wexford-content">
 
+  <!-- Unavaiilable as iron-ajax is not listed as a dependency
+   <template>
+    <iron-ajax url="[[url]]/codelab.json" last-response="{{data}}" auto></iron-ajax>
+  </template> -->
   <script>
 
     Polymer({
@@ -30,10 +34,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         
         label: {
-          value: 'A Project'
+          value: ''
         },
 
-        description: {
+        summary: {
           value: ''          
         },
         
@@ -55,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       observers: [
-        '_render(pos, url, label, description, padding, margin, boxShadow, prefix)'
+        '_render(pos, url, label, summary, padding, margin, boxShadow, prefix)'
       ],
       
       followLink: function(e1) {
@@ -65,6 +69,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         });
       },
   
+      _getResource(rq) {
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', rq.onLoad.bind(this));
+        xhr.open('GET', rq.url);
+        xhr.send();
+      },
+
+      _fetchData() {
+         this._getResource({ 
+            url: this.url + '/codelab.json',
+            onLoad: function(e) {
+              var r = e.target.responseText;
+              if (!r.startsWith('4') && r.startsWith('{')) {
+                //console.log("Data:" + );              
+                var data = JSON.parse(r);
+                if ((data != null) && (typeof data == "object")) {
+                  this.set('label', data.title);
+                  this.set('summary', data.summary);                
+                } else {
+                  console.log("Invalid JSON data:");
+                }
+              } else {
+                console.log("Invalid request:" + r);
+              }            
+            }
+          });
+      },
+
       ready: function() {
         this.style.display = 'block';
         
@@ -73,36 +105,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // Running on github
             this.set('prefix', 'cdmaterial');
         }
-            
+        // Prevent CORS error
+        if (!this.url.startsWith('http')) {
+          this._fetchData();
+        }
       },
-
+      
+      _generateHomeLink: function() {
+        var fullLink = this.url;
+        // Check for full URL or empty prefix
+        if ((!this.url.startsWith('http')) && (this.prefix !== '')) {
+            // Have a prefix, give hint as to where the index page is
+            fullLink += '/index.html?index=' + prefix;
+            //console.log("Adding prefix");            
+        }
+        return fullLink;
+      },
+      
       // Apply some styles to make this look like a card.
       _render: function(pos, url, label, description, padding, margin, boxShadow, prefix) {
         var html = '';
           html +=
             '<div style="box-shadow: ' + boxShadow +  '; padding: ' + padding + '; margin: ' + margin + '; border-radius: 5px; background-color: #fff; color: #757575;">' +
-            '<div style="display: inline-block; height: 64px; width: 64px; border-radius: 50%; background: #ddd; line-height: 64px; font-size: 30px; color: #555; text-align: center;">' + (pos) + '</div>' +
+            '<div style="display: inline-block; height: 64px; width: 64px; border-radius: 50%; background: #ddd; line-height: 64px; font-size: 30px; color: #555; text-align: center;">' + (pos) + '</div>';
+          if (this.label.length == 0) {
+            label = "No information available yet.";
+          }
+          html +=
             '<div style="font-size: 22px; margin: 16px 0; color: #212121;">Project: ' + label + ' ' +  '</div>' +
             '<p style="font-size: 16px;">' + description + '</p>';
-          if (pos > 1) {
+          if ((pos > 1) && (this.label.length > 0)) {
             html +=
             '<p style="font-size: 14px;">You should complete the previous project before attempting this one.</p>';
           } else {
             html += '<br/>';
           }
-          var fullpath = this.url;
-          // Check for full URL
-          if (fullpath.startsWith('http')) {
-            // Full URL, skip adding prefix portion
-            //console.log("Skipping prefix");            
-          } else if (this.prefix !== '') {
-              // Have a prefix, give hint as to where the index page is
-              fullpath = fullpath + '/index.html?index=' + prefix;
-              //console.log("Adding prefix");            
-          }
           html +=          
-            '<div class="card-actions"><a href="' + fullpath + '"><paper-button raised>Start now</paper-button></a></div>'
-            '</div>';              
+            '<div class="card-actions">'
+          if (this.label.length == 0) {
+            html +=          
+              '<paper-button disabled>Start now</paper-button></div>'
+              '</div>';
+          } else {
+            html +=          
+              '<a href="' + this._generateHomeLink() + '"><paper-button raised>Start now</paper-button></a></div>'
+              '</div>';
+          }
           this.innerHTML = html;
       }
 

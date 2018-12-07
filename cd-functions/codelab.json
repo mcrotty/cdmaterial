@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "source": "1HiIJe3YBEDZb4d88ONQDJXP9GJqL98bUfzNZVfbMrLI",
+  "format": "html",
+  "prefix": "../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-12-07T14:33:56Z",
+  "id": "cd-functions",
+  "duration": 0,
+  "title": "Funky Functions",
+  "summary": "This project will introduce functions, and more importantly some of the rules that govern the operation of functions.  This is necessary to understand someone else's code, or write more complex javascript code yourself.",
+  "theme": "web",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "functions",
+    "javascript"
+  ],
+  "feedback": "mcrotty.tssg@gmail.com",
+  "url": "cd-functions"
+}
